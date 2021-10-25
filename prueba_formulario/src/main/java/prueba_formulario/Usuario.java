@@ -23,6 +23,9 @@ public class Usuario {
 	public int getEdadUsuario() {
 		return edadUsuario;
 	}
+	/*
+	 * Aqui validaremos si la edad introducida es valida con el if y pondremos una excepcion
+	 */
 	public void setEdadUsuario(int edadUsuario) throws Exception {
 		if (edadUsuario<=0) {
 			throw new Exception();
