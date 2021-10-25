@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<%! private int accesos = 0; %>
 		<h1>Usuario Nº: <%= ++accesos %></h1>
 		<form action="SaludoUsuario.jsp" method="POST">
 			Nombre: <input type="text" name="nombreUsuario" required>
