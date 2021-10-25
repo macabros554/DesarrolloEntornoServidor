@@ -4,13 +4,17 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<form action="result.jsp" method="POST">
-			Nombre: <input type="text" name="nombres" required>
+		<%! private int accesos = 0; %>
+		<h1>Usuario Nº: <%= ++accesos %></h1>
+		<form action="SaludoUsuario.jsp" method="POST">
+			Nombre: <input type="text" name="nombreUsuario" required>
 			<br/>
-			Apellidos: <input type="text" name="apellidos" required>
+			Apellidos: <input type="text" name="apellidosUsuario" required>
 			<br/>
-			Edad: <input type="number" name="age" required>
+			Edad: <input type="number" name="edadUsuario" required>
+
 			<input type="submit" value="Enviar">
 		</form>
 	</body>
 </html>
+
