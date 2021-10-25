@@ -17,11 +17,11 @@
 		</p>
 		<p>Edad:
 			<jsp:getProperty name="nuevoUsuario" property="edadUsuario"/><br><br>
-			
+			<!-- si la edad es igual o mayor a 18 deneria decirte que eres mayos de edad y si no te diraque eres menor -->
 			<% if (nuevoUsuario.getEdadUsuario()>=18) { %>
 				Eres mayor de edad
 			<% }
-			   else if (nuevoUsuario.getEdadUsuario()<18) {%>
+			   else {%>
 			   Eres menor de edad
 			<% }%>
 		</p>
