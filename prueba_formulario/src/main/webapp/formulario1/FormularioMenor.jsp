@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html>
+
 	<body>
 		<h1>Usuario Nº: <%= ++accesos %></h1>
 		<form action="SaludoUsuario.jsp" method="POST">

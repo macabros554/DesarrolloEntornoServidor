@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page errorPage = "ErrorEdadNoValida.jsp" %>
 <!DOCTYPE html>
-<html>
+
 	<%@ include file = "Header.jsp" %>
 	<body>
 		<jsp:useBean id="nuevoUsuario" class="prueba_formulario.Usuario" scope="session"/>

@@ -7,4 +7,3 @@
 		<title>Formulario base</title>
 		<link href="estilos.css" rel="stylesheet">
 	</head>
-</html>
