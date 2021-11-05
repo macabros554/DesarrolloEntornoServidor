@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +38,8 @@ public class Logear extends HttpServlet{
     				
     				if (usuariosReg.containsKey(nombre) && usuariosReg.get(nombre).equals(contrasena) && sesion.getAttribute("nombreUsuario")==null) {
 						System.out.println("Sesion iniciada");
-						//response.sendRedirect();
+						request.setAttribute("nombreUsu",nombre);
+						response.sendRedirect("catalogo");
 					}else {
 						System.out.println("El nombre o contraseña no coincide");
 					}

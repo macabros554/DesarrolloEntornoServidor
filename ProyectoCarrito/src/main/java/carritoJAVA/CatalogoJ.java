@@ -24,11 +24,15 @@ public class CatalogoJ extends HttpServlet{
     		out.println("<!DOCTYPE html>");
     		out.println("<html>");
     		out.println("<head>\n"
-    				+ "	<meta charset=\"UTF-8\">\n"
+    				+ "	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8 />\n"
     				+ "	<title>Catalogo SuperMercado</title>\n"
     				+ "	</head>");
-    		out.println("	<body>\n"
-    				+ "		<div>");
+    		out.println("<body>");
+    		String nUsuario=(String) request.getAttribute("nombreUsu");
+    		out.println("<div>"
+    				+ "<p>"+nUsuario+"</p>"
+    				+ "<div>");
+    		out.println("<div>");
     		out.println("<div>\n"
     				+ "	Arina 1Kg <br> \n"
     				+ "	1,25€ <br> \n"
