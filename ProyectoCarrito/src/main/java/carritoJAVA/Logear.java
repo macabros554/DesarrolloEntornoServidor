@@ -38,9 +38,10 @@ public class Logear extends HttpServlet{
     				
     				if (usuariosReg.containsKey(nombre) && usuariosReg.get(nombre).equals(contrasena) && sesion.getAttribute("nombreUsuario")==null) {
 						System.out.println("Sesion iniciada");
-						request.setAttribute("nombreUsu",nombre);
+						sesion.setAttribute("nombreUsu", nombre);
 						response.sendRedirect("catalogo");
 					}else {
+						response.sendRedirect("carritoJSP/Login.jsp");
 						System.out.println("El nombre o contraseña no coincide");
 					}
     				

@@ -6,13 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Login SuperMercado</title>
+<link href="Estilos.css" rel="stylesheet">
 
 </head>
 <body>
 	<form action="/ProyectoCarrito/login" method="post">
-		Nombre: <input type="text" name="nombreUsuario" required>
+		<label for="login">Nombre de usuario:</label>
+		<input type="text" name="nombreUsuario" required>
 		<br/>
-		Contraseña: <input type="text" name="contrasenia" required>
+		<label for="contra">Contraseña:</label>
+		<input type="password" name="contrasenia" required> 
 		<br>
 		<input type="submit" value="Enviar">
 	</form>

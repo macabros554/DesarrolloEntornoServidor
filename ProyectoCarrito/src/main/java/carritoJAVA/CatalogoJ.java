@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(
 		name="catalogo", 
@@ -18,46 +19,66 @@ public class CatalogoJ extends HttpServlet{
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException {
+    		HttpSession sesion = request.getSession();
     		response.setContentType("text/html");
     		PrintWriter out = response.getWriter();
+    		String nUsuario=null;
+    		
+    		if (sesion.isNew() || sesion==null) {         
+    			response.sendRedirect("carritoJSP/Login.jsp");
+                 
+            } else {
+            	nUsuario=(String) sesion.getAttribute("nombreUsu");
+            	if (nUsuario==null) {
+            		response.sendRedirect("carritoJSP/Login.jsp");
+				}
+        }
+
+			
     		
     		out.println("<!DOCTYPE html>");
     		out.println("<html>");
     		out.println("<head>\n"
-    				+ "	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8 />\n"
-    				+ "	<title>Catalogo SuperMercado</title>\n"
+    				+ "	<meta http-equiv=Content-Type content=text/html; charset=UTF-8 />"
+    				+ "	<title>Catalogo SuperMercado</title>"
+    				+ "	<link href=carritoJSP/Estilos.css rel=stylesheet>"
     				+ "	</head>");
     		out.println("<body>");
-    		String nUsuario=(String) request.getAttribute("nombreUsu");
+    		
     		out.println("<div>"
     				+ "<p>"+nUsuario+"</p>"
     				+ "<div>");
+    		
     		out.println("<div>");
-    		out.println("<div>\n"
-    				+ "	Arina 1Kg <br> \n"
-    				+ "	1,25€ <br> \n"
-    				+ "	<button>Añadir al carro</button>\n"
+    		out.println("<form action=/ProyectoCarrito/envio method=post>");
+    		out.println("<div>"
+    				+ "Arina 1Kg <br>"
+    				+ "1,25€ <br>"
+    				+ "<input type=number name=arina1Kg value=0>"
     				+ "</div>");
     		out.println("<div>\n"
-    				+ "	Macarrones 1Kg <br> \n"
-    				+ "	1,50€ <br> \n"
-    				+ "	<button>Añadir al carro</button>\n"
-    				+ "	</div>");
-    		out.println("<div>\n"
-    				+ "	Lentejas 500 gramos <br> \n"
-    				+ "	0,75€ <br> \n"
-    				+ "	<button>Añadir al carro</button>\n"
-    				+ "	</div>");
-    		out.println("<div>\n"
-    				+ "	Espaguetis 2Kg <br> \n"
-    				+ "	2,00€ <br> \n"
-    				+ "	<button>Añadir al carro</button>\n"
-    				+ "	</div>");
+    				+ "Macarrones 1Kg <br>"
+    				+ "1,50€ <br>"
+    				+ "<input type=number name=macarrones1Kg value=0>"
+    				+ "</div>");
+    		out.println("<div>"
+    				+ "Lentejas 500g <br>"
+    				+ "0,75€ <br>"
+    				+ "<input type=number name=lentejas500gramos value=0>"
+    				+ "</div>");
+    		out.println("<div>"
+    				+ "Espaguetis 2Kg <br>"
+    				+ "2,00€ <br>"
+    				+ "<input type=number name=espaguetis2Kg value=0>"
+    				+ "</div>");
     		//out.println("/div>");
     		//veo incoerencias en el codigo
+    		out.println("<input type=submit value=Aceptar>");
+    		out.println("</form>");
     		out.println("</body>");
     		out.println("</html>");
-    		
+    		sesion.setMaxInactiveInterval(180);
+    		//out.println(" session.getMaxInactiveInterval(): " + sesion.getMaxInactiveInterval() + " secs");
     	    }
     	    
     public void doPost(HttpServletRequest request, HttpServletResponse response) 
