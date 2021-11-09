@@ -10,14 +10,17 @@
 
 </head>
 <body>
-	<form action="/ProyectoCarrito/login" method="post">
-		<label for="login">Nombre de usuario:</label>
-		<input type="text" name="nombreUsuario" required>
-		<br/>
-		<label for="contra">Contraseña:</label>
-		<input type="password" name="contrasenia" required> 
-		<br>
-		<input type="submit" value="Enviar">
-	</form>
+	<div class="divPadre">
+		<form action="/ProyectoCarrito/login" method="post">
+			<label for="login">Nombre de usuario:</label>
+			<input type="text" name="nombreUsuario" required>
+			<br/>
+			<label for="contra">Contraseña:</label>
+			<input type="password" name="contrasenia" required> 
+			<br>
+			<input type="submit" value="Enviar" class="botonForm">
+		</form>
+	</div>
+
 </body>
 </html>

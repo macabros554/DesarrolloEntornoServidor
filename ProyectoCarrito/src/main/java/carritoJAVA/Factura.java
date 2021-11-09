@@ -22,7 +22,7 @@ public class Factura extends HttpServlet{
 	    	HttpSession sesion = request.getSession();
 			response.setContentType("text/html");
 			
-			if (sesion.isNew() || sesion==null) {         
+			if (sesion.isNew()) {         
 				response.sendRedirect("carritoJSP/Login.jsp");
 	        }else {
 	        	response.sendRedirect("carritoJSP/Login.jsp");
@@ -36,7 +36,7 @@ public class Factura extends HttpServlet{
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			String nUsuario=null;
-			double arina1Kg=0;
+			double harina1Kg=0;
 			double macarrones1Kg=0;
 			double lentejas500gramos=0;
 			double espaguetis2Kg=0;
@@ -44,63 +44,60 @@ public class Factura extends HttpServlet{
 			String calle=null;
 			String numero=null;
 			String numeroTelefono=null;
-			String tipoEnv=null;
+			double tipoEnv=2.50;
 			
-			if (sesion.isNew() || sesion==null) {         
-				response.sendRedirect("carritoJSP/Login.jsp");
-	        } else {
-	        	nUsuario=(String) sesion.getAttribute("nombreUsu");
-	        	//Recuperar datos enviados por post
-	        	ciudad=request.getParameter("ciudad");
-	        	calle=request.getParameter("calle");
-	        	numero=request.getParameter("numero");
-	        	numeroTelefono=request.getParameter("numeroTelefono");
-	        	tipoEnv=request.getParameter("tipoEnv");
-	    		//Recuperar datos guardados en la sesion
-	        	arina1Kg= (double) sesion.getAttribute("arina1Kg");
-	        	macarrones1Kg=(double) sesion.getAttribute("macarrones1Kg");
-	        	lentejas500gramos=(double) sesion.getAttribute("lentejas500gramos");
-	        	espaguetis2Kg=(double) sesion.getAttribute("espaguetis2Kg");
-	    }
+        	nUsuario=(String) sesion.getAttribute("nombreUsu");
+        	//Recuperar datos enviados por post
+        	ciudad=request.getParameter("ciudad");
+        	calle=request.getParameter("calle");
+        	numero=request.getParameter("numero");
+        	numeroTelefono=request.getParameter("numeroTelefono");
+        	tipoEnv=Double.parseDouble(request.getParameter("envio"));;
+    		//Recuperar datos guardados en la sesion
+        	harina1Kg= (double) sesion.getAttribute("harina1Kg");
+        	macarrones1Kg=(double) sesion.getAttribute("macarrones1Kg");
+        	lentejas500gramos=(double) sesion.getAttribute("lentejas500gramos");
+        	espaguetis2Kg=(double) sesion.getAttribute("espaguetis2Kg");
+	    
 			
 			
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>"
-					+ "	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8 />"
-					+ "	<title>Factura SuperMercado</title>"
-					+ "	<link href=carritoJSP/Estilos.css rel=stylesheet>"
-					+ "	</head>");
+					+ "<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8 />"
+					+ "<title>Factura SuperMercado</title>"
+					+ "<link href=carritoJSP/Estilos.css rel=stylesheet>"
+					+ "</head>");
 			out.println("<body>");
 			
 			out.println("<div>"
-					+ "<p>"+nUsuario+"</p>"
+					+ "<p>Usuario: "+nUsuario+"</p>"
 					+ "<div>");
-			out.println("<div>");
-			out.println("<div>");
+			out.println("<div class=divPadre>");
+			out.println("<div class=contenido>");
 
-			if (arina1Kg!=0) {
+			if (harina1Kg!=0) {
 				out.println("<div>"
-				+ "<p>Uster a pedido "+ arina1Kg+" aquetes de arina 1Kg su precio total es "+ arina1Kg*1.25+"</p>"
+				+ "<p>Uster a pedido "+ harina1Kg+" aquetes de harina 1Kg su precio total es "+ harina1Kg*1.25+" euros</p>"
 				+ "</div>");
 				}
 			if (macarrones1Kg!=0) {
 				out.println("<div>"
-				+ "<p>Uster a pedido "+ macarrones1Kg+" aquetes de macarrones de 1Kg su precio total es "+ macarrones1Kg*1.50+"</p>"
+				+ "<p>Uster a pedido "+ macarrones1Kg+" aquetes de macarrones de 1Kg su precio total es "+ macarrones1Kg*1.50+" euros</p>"
 				+ "</div>");
 				}
 			if (lentejas500gramos!=0) {
 				out.println("<div>"
-				+ "<p>Uster a pedido "+ lentejas500gramos+" paquetes de lentejas de 500g de 2Kg su precio total es "+ lentejas500gramos*0.75+"</p>"
+				+ "<p>Uster a pedido "+ lentejas500gramos+" paquetes de lentejas de 500g de 2Kg su precio total es "+ lentejas500gramos*0.75+" euros</p>"
 				+ "</div>");
 				}
 			if (espaguetis2Kg!=0) {
 				out.println("<div>"
-				+ "<p>Uster a pedido "+ espaguetis2Kg+" paquetes de espaguetis de 2Kg su precio total es "+ espaguetis2Kg*2.00+"</p>"
+				+ "<p>Uster a pedido "+ espaguetis2Kg+" paquetes de espaguetis de 2Kg su precio total es "+ espaguetis2Kg*2.00+" euros</p>"
 				+ "</div>");
 				}
 			out.println("<div>"
-					+ "<p>El envio es "+ 2.50 +"</p>"
+					+ "<p>El envio es "+ tipoEnv +" euros</p>"
 					+ "</div>");
 			out.println("<div>"
 			+ "<p>La direccion a la que se enviara es "+ ciudad+" calle "+ calle +" numero "+ numero +"</p>"
@@ -108,19 +105,16 @@ public class Factura extends HttpServlet{
 			+ "</div>");
 			
 			out.println("<div>"
-					+ "<p>El precio total es "+ (espaguetis2Kg*2.00+lentejas500gramos*0.75+macarrones1Kg*1.50+arina1Kg*1.25+2.50) +"</p>"
+					+ "<p>El precio total es "+ (espaguetis2Kg*2.00+lentejas500gramos*0.75+macarrones1Kg*1.50+harina1Kg*1.25+tipoEnv) +" euros</p>"
 					+ "</div>");
 			out.println("<div>"
 					+ "<p>Si los datos son correctos pulse aceptar"+"</p>"
 					+ "</div>");
-			out.println("<form action=/ProyectoCarrito/fin method=post>");
+			out.println("<form action=/ProyectoCarrito/fin method=post class=formDiferente>");
 			out.println("<div>"
-					+ "<input type=submit value=Aceptar>"
+					+ "<input type=submit value=Aceptar class=botonForm>"
 					+ "</div>");
 			out.println("</form>");
-
-
-
 
 			out.println("</body>");
 			out.println("</html>");

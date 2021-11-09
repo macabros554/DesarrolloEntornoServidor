@@ -1,4 +1,44 @@
+html {
+     scroll-behavior: smooth;
+}
+
 body{
     background-color: aqua;
-    text-align: center;
+    text-align: justify;
+    
 }
+
+input {
+	margin-bottom: 1%;
+}
+
+form{
+	padding-top: 1%;
+	padding-left: 10px;
+}
+.contenido{
+	padding-left: 10px;
+}
+
+.formDiferente{
+	padding-top: 0%;
+	padding-left: 10px;
+}
+
+.botonForm{
+	border-radius: 12px;
+	cursor: pointer;
+	border: none;  
+	padding: 10px 20px;
+	border-color: blue;
+	color: #fff;
+	box-shadow: 0 0 40px 40px blue inset, 0 0 0 0 blue;
+	transition: all 150ms ease-in-out;
+}
+.divPadre{
+	border: outset #000000;
+	background-color: #f8e45c;
+	
+}
+
+

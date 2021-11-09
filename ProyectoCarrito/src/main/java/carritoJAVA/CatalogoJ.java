@@ -24,7 +24,7 @@ public class CatalogoJ extends HttpServlet{
     		PrintWriter out = response.getWriter();
     		String nUsuario=null;
     		
-    		if (sesion.isNew() || sesion==null) {         
+    		if (sesion.isNew()) {         
     			response.sendRedirect("carritoJSP/Login.jsp");
                  
             } else {
@@ -39,41 +39,42 @@ public class CatalogoJ extends HttpServlet{
     		out.println("<!DOCTYPE html>");
     		out.println("<html>");
     		out.println("<head>\n"
-    				+ "	<meta http-equiv=Content-Type content=text/html; charset=UTF-8 />"
-    				+ "	<title>Catalogo SuperMercado</title>"
-    				+ "	<link href=carritoJSP/Estilos.css rel=stylesheet>"
-    				+ "	</head>");
+    				+ "<meta http-equiv=Content-Type content=text/html; charset=UTF-8 />"
+    				+ "<title>Catalogo SuperMercado</title>"
+    				+ "<link href=carritoJSP/Estilos.css rel=stylesheet>"
+    				+ "</head>");
     		out.println("<body>");
     		
-    		out.println("<div>"
-    				+ "<p>"+nUsuario+"</p>"
-    				+ "<div>");
     		
-    		out.println("<div>");
+    		out.println("<div>"
+    				+ "<p>Usuario: "+nUsuario+"</p>"
+    				+ "<div>");
+    		out.println("<div class=divPadre>");
+    		
     		out.println("<form action=/ProyectoCarrito/envio method=post>");
     		out.println("<div>"
-    				+ "Arina 1Kg <br>"
-    				+ "1,25€ <br>"
-    				+ "<input type=number name=arina1Kg value=0>"
+    				+ "Harina 1Kg <br>"
+    				+ "1,25 euros<br>"
+    				+ "<input type=number name=harina1Kg value=0>"
     				+ "</div>");
     		out.println("<div>\n"
     				+ "Macarrones 1Kg <br>"
-    				+ "1,50€ <br>"
+    				+ "1,50 euros <br>"
     				+ "<input type=number name=macarrones1Kg value=0>"
     				+ "</div>");
     		out.println("<div>"
     				+ "Lentejas 500g <br>"
-    				+ "0,75€ <br>"
+    				+ "0,75 euros <br>"
     				+ "<input type=number name=lentejas500gramos value=0>"
     				+ "</div>");
     		out.println("<div>"
     				+ "Espaguetis 2Kg <br>"
-    				+ "2,00€ <br>"
+    				+ "2,00 euros <br>"
     				+ "<input type=number name=espaguetis2Kg value=0>"
     				+ "</div>");
     		//out.println("/div>");
     		//veo incoerencias en el codigo
-    		out.println("<input type=submit value=Aceptar>");
+    		out.println("<input type=submit value=Aceptar class=botonForm>");
     		out.println("</form>");
     		out.println("</body>");
     		out.println("</html>");

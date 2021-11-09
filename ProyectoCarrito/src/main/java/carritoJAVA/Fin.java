@@ -37,7 +37,7 @@ public class Fin extends HttpServlet{
 			PrintWriter out = response.getWriter();
 			String nUsuario=null;
 			
-			if (sesion.isNew() || sesion==null) {         
+			if (sesion.isNew()) {         
 				response.sendRedirect("carritoJSP/Login.jsp");
 	        } else {
 	        	nUsuario=(String) sesion.getAttribute("nombreUsu");
@@ -48,14 +48,14 @@ public class Fin extends HttpServlet{
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>\n"
-					+ "	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8 />\n"
-					+ "	<title>Factura SuperMercado</title>\n"
-					+ "	<link href=carritoJSP/Estilos.css rel=stylesheet>"
-					+ "	</head>");
+					+ "<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8 />\n"
+					+ "<title>Factura SuperMercado</title>\n"
+					+ "<link href=carritoJSP/Estilos.css rel=stylesheet>"
+					+ "</head>");
 			out.println("<body>");
 			
-			out.println("<h1>Su compra a terminado volvera al login en breve ");
-
+			out.println("<h1>Pulsa el boton para volver al login ");
+			out.println("<a href=carritoJSP/Login.jsp><input type=submit value=Terminar class=botonForm></a>");
 			out.println("</body>");
 			out.println("</html>");
 
