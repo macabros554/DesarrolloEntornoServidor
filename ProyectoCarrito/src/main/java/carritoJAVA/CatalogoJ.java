@@ -27,11 +27,14 @@ public class CatalogoJ extends HttpServlet{
     		
     		if (sesion.isNew()) {         
     			response.sendRedirect("carritoJSP/Login.jsp");
+    			sesion.invalidate();
                  
             } else {
             	nUsuario=(String) sesion.getAttribute("nombreUsu");
             	if (nUsuario==null) {
             		response.sendRedirect("carritoJSP/Login.jsp");
+            		sesion.invalidate();
+            	
 				}
         }
 
