@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 public class CatalogoJ extends HttpServlet{
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException {
     		HttpSession sesion = request.getSession();
@@ -82,6 +83,7 @@ public class CatalogoJ extends HttpServlet{
     		//out.println(" session.getMaxInactiveInterval(): " + sesion.getMaxInactiveInterval() + " secs");
     	    }
     	    
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) 
     	       throws ServletException, IOException {
 

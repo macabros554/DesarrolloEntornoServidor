@@ -17,18 +17,20 @@ import javax.servlet.http.HttpSession;
 
 public class Fin extends HttpServlet{
 
+	 @Override
 	 public void doGet(HttpServletRequest request, HttpServletResponse response) 
 	    		throws ServletException, IOException {
 	    	HttpSession sesion = request.getSession();
 			response.setContentType("text/html");
 			
-			if (sesion.isNew() || sesion==null) {         
+			if (sesion.isNew()) {         
 				response.sendRedirect("carritoJSP/Login.jsp");
 	        }else {
 	        	response.sendRedirect("carritoJSP/Login.jsp");
 	        }
 	    	    }
 	    	    
+	    @Override
 	    public void doPost(HttpServletRequest request, HttpServletResponse response) 
 	    	       throws ServletException, IOException {
 	    	

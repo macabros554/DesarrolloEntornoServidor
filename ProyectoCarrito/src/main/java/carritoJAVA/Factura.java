@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 public class Factura extends HttpServlet{
 	
+	 @Override
 	 public void doGet(HttpServletRequest request, HttpServletResponse response) 
 	    		throws ServletException, IOException {
 	    	HttpSession sesion = request.getSession();
@@ -29,6 +30,7 @@ public class Factura extends HttpServlet{
 	        }
 	    	    }
 	    	    
+	    @Override
 	    public void doPost(HttpServletRequest request, HttpServletResponse response) 
 	    	       throws ServletException, IOException {
 	    	
