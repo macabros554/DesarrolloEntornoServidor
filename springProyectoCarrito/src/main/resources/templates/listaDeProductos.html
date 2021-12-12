@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Lista Pedidos SuperMercado</title>
+		<link href="estilos.css" rel="stylesheet">
+	</head>
+	<body>
+		<p th:text="${Usuario}"/>
+		<a href="/cerrarSesion"><button>Cerrar sesion</button></a>
+		<h1>Lista de pedidos</h1>
+    	<table>
+    	<thead>
+    		<tr>
+    			<th>Fecha</th>
+    			<th>Referencia</th>
+    			<th>Direccion</th>
+    			<th>Direccion</th>
+    	</thead>
+		<tbody>
+    		<tr th:each="compra : ${pedidos}">
+    			<td th:text="${compra.fechaPack}"/>
+    			<td th:text="${compra.referencia}"/>
+    			<td th:text="${compra.direccion}"/>	
+    			<td th:text="${compra.telefono}"/>			
+    	</tbody>
+    </table>
+
+	</body>
+</html>
