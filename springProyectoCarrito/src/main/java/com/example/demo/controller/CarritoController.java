@@ -163,13 +163,17 @@ public class CarritoController {
 		//creamos la lista de productos en los servicios pedidos y productos
 		this.servicioProductos.meterProducto(nuevoProducto);
 		this.servicioPedido.meterPedidos(nuevoProducto);
-		return "redirect:/login/select/EditarProducto/EditarEnvio";
+		if(servicioPedido.getPrecioTotal()==0) {
+			return "redirect:/login/select/EditarProducto/"+servicioUsuario.getId();
+		}else {
+			return "redirect:/login/select/EditarProducto/EditarEnvio";
+		}
 	}
 	
 	@GetMapping("/login/select/EditarProducto/EditarEnvio")
 	public String editarEnvio(Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
-		model.addAttribute("datosPedido", servicioUsuario.getMapaDelPedido());
+		model.addAttribute("datosPedido", servicioProductos.getListaCantidades());
 		return "envioEdit";
 	}
 	
@@ -182,6 +186,8 @@ public class CarritoController {
 		if(direccion=="" || telefono=="" || email=="") {
 			return "redirect:/login/select/NuevoP/envio";
 		}else {
+			//actualizamos el pedido que tenemos guardado en el servicio
+			servicioPedido.setUltimoPedido(pedidoNuevo);
 			pedidoNuevo.setCorreoElectronico(email);
 			pedidoNuevo.setDireccion(direccion);
 			pedidoNuevo.setTelefono(telefono);

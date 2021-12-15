@@ -68,6 +68,9 @@ public class PedidosService {
 		return ultimoPedido;
 	}
 	
+	public void setUltimoPedido(Pedidos ultimoPedido) {
+		this.ultimoPedido = ultimoPedido;
+	}
 	//Este metodo es para mostrar la lista de pedidos que tiene guardada el usuario
 	public List<Pedidos> getListaProductos(Usuario a) {
 		return a.getListaPedidos();
