@@ -55,6 +55,7 @@ public class PedidosService {
 				encontrado = true;
 				e.setFechaPack(listaPedidos.get(i).getFechaPack());
 				e.setIdPedido(listaPedidos.get(i).getIdPedido());
+				e.setProductosLista(productosLista);
 				a.getListaPedidos().remove(i);
 				a.getListaPedidos().add(e);
 			} else {
