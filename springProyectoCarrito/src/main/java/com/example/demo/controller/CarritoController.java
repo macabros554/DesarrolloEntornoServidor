@@ -26,6 +26,8 @@ import com.example.demo.service.UsuarioService;
 @Controller
 public class CarritoController {
 
+	//creamos los autowired de los servicios porque los usaremos todos
+	
 	@Autowired
 	private UsuarioService servicioUsuario;
 	
@@ -38,8 +40,10 @@ public class CarritoController {
 	@Autowired
 	private ProductoService servicioProductos;
 	
+	
 	@GetMapping({"/","login"})
 	public String logearUsuario(Model model) {
+		//añadimos el model usuario para poder usarlo y recogerlo en el post
 		model.addAttribute("usuario", new Usuario());
 		return "login";
 	}
@@ -47,9 +51,12 @@ public class CarritoController {
 	@PostMapping("/login/submit")
 	@RequestMapping (value="/login/submit", method=RequestMethod.POST)
 	public String logearUsuarioSubmit(@Validated @ModelAttribute("usuario") Usuario intentoDeLogin,BindingResult bindingResult ) {
+		//Con el ModelAttribute recogemos el usuario y lo comparamos con los existentes
+		//si existe te lleva al selector si no te devuelve al login
 		if (servicioUsuario.sacarUsuario(intentoDeLogin)==null) {
 			return "login";
 		} else {
+			//guardamos el usuario en la sesion
 			sesion.setAttribute("usuario1", servicioUsuario.sacarUsuario(intentoDeLogin));
 			return "redirect:/login/select";
 		}
@@ -57,6 +64,7 @@ public class CarritoController {
 	
 	@GetMapping("/login/select")
 	public String seleccionarAccion1(Model model) {
+		//Desde de aqui creo siempre el model ususario para mostrar siempre el usuario en todas las paginas
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
 		return "select";
 	}
@@ -65,6 +73,7 @@ public class CarritoController {
 	@GetMapping("/login/select/listaP")
 	public String listaDeProductos(Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
+		//Saco de la sesion del usuario sus pedidos para mostrarlos
 		model.addAttribute("pedidos",servicioPedido.sacarPedidos((Usuario) sesion.getAttribute("usuario1")));
 		return "listaDeProductos";
 	}
@@ -72,15 +81,23 @@ public class CarritoController {
 	@GetMapping("/login/select/NuevoP")
 	public String nuevoPedido(Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
+		//Saco todos los productos creados para posterior mente reutilizarlos para crear un mapa con la cantidad
 		model.addAttribute("Productos",servicioProductos.getListaProductos());
 		return "pedidoNuevo";
 	}
 	
 	@PostMapping("/login/select/NuevoP/submit")
 	public String nuevoPedidoSubmit(Model model, @RequestParam(name="cantidades") Integer[] nuevoProducto) {
+		//metemos las cantidades y productos en un mapa
 		this.servicioProductos.meterProducto(nuevoProducto);
 		this.servicioPedido.meterPedidos(nuevoProducto);
-		return "redirect:/login/select/NuevoP/envio";
+		//confirmamos que no este vacio con una variable que tengo en servicio pedido
+		if(servicioPedido.getPrecioTotal()==0) {
+			return "redirect:/login/select/NuevoP";
+		}else {
+			return "redirect:/login/select/NuevoP/envio";
+		}
+		
 	}
 	
 	@GetMapping("/login/select/NuevoP/envio")
@@ -88,6 +105,7 @@ public class CarritoController {
 		//creamos un pedido para usarlo en envio
 		model.addAttribute("direccion", new Pedidos());
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
+		//sacamos las el mapa con productos y cantidades para verlo en el envio
 		model.addAttribute("datosPedido", this.servicioProductos.getListaCantidades());
 		return "envio";
 	}
@@ -98,6 +116,7 @@ public class CarritoController {
 			@RequestParam(name="email") String email,
 			@RequestParam(name="telefono") String telefono
 			) {
+		//confirmamos que el usuario no a dejado nada en blanco
 		if(direccion=="" || telefono=="" || email=="") {
 			return "redirect:/login/select/NuevoP/envio";
 		}else {
@@ -113,6 +132,7 @@ public class CarritoController {
 	
 	@GetMapping("/login/select/NuevoP/envio/resumen")
 	public String resumen(Model model) {
+		//mostramos todos los datos que ha rellenado y cuanto cuesta en total lo que a comprado
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
 		model.addAttribute("datosPedido", this.servicioProductos.getListaCantidades());
 		model.addAttribute("direccionPedido", servicioPedido.mostrarUltimoPedido());	
@@ -125,7 +145,9 @@ public class CarritoController {
 	@GetMapping("/login/select/EditarProducto/{id}")
 	public String editarPedido(@PathVariable Integer id, Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
+		//creamos un pedido para guardar el pedido a modificar del usuario
 		Pedidos pedidoResguardo= servicioUsuario.sacarPedido((Usuario) sesion.getAttribute("usuario1"), id);
+		//confirmamos que no a pasado una id nula
 		if(pedidoResguardo!=null) {
 			//guardamos la id del pedido en el usuario
 			servicioUsuario.setId(id);
