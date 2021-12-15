@@ -3,14 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Select1 SuperMercado</title>
-		<link href="estilos.css" rel="stylesheet">
+		<link href="/estilos.css" rel="stylesheet">
 	</head>
 	<body>
-		<p th:text="${Usuario}"/>
+	<div class="divPadre">
+		<p th:text="${usuario.getNickName}"/>
 		<a href="/cerrarSesion"><button>Cerrar sesion</button></a>
 		<h1>Selecciona la accion a ejecutar</h1>
 		
-		<a href="/login/select/NuevoP"><button>Nuevo Pedido</button></a>
-		<a href="/login/select/listaP"><button>Lista Pedidos</button></a>
+		
+			<a href="/login/select/NuevoP"><button class="botonForm">Nuevo Pedido</button></a>
+			<a href="/login/select/listaP"><button class="botonForm">Lista Pedidos</button></a>
+		</div>
 	</body>
 </html>

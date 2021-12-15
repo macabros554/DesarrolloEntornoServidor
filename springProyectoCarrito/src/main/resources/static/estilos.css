@@ -4,7 +4,7 @@ html {
 }
 
 body{
-    background-color: aqua;
+    background-color: #0072c6;
     text-align: justify;
     
 }
@@ -28,7 +28,9 @@ form{
 	transition: all 150ms ease-in-out;
 }
 .divPadre{
+	border-radius: 12px;
 	border: outset #000000;
-	background-color: #f8e45c;
+	background-color: #bfbaaf;
+	padding: 1%;
 	
 }

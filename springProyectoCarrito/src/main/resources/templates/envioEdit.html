@@ -6,10 +6,10 @@
 		<link href="/estilos.css" rel="stylesheet">
 	</head>
 	<body>
-		<div class="divPadre">
+	<div class="divPadre">
 		<p th:text="${usuario.getNickName}"/>
 		<a href="/cerrarSesion"><button>Cerrar sesion</button></a>
-			<form action="#" th:action="@{/login/select/NuevoP/envio/submit}" method="post" th:object="${direccion}">
+			<form action="#" th:action="@{/login/select/EditarProducto/EditarEnvio/submit}" method="post">
 			<h2>Productos adquiridos</h2>
 				<table>
 			    	<thead>

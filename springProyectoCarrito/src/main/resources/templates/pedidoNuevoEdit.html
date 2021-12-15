@@ -10,7 +10,7 @@
 		<p th:text="${usuario.getNickName}"/>
 		<a href="/cerrarSesion"><button>Cerrar sesion</button></a>
 		<h1>Lista de productos</h1>
-		<form action="#" th:action="@{/login/select/NuevoP/submit}" 
+		<form action="#" th:action="@{/login/select/EditarProducto/submit}" 
 		method="post">
 			<br/>
 			<table>
@@ -22,10 +22,10 @@
 		    		</tr>
 		    	</thead>
 				<tbody>
-		    		<tr th:each="compra : ${Productos}">
-		    			<td th:text="${compra.nombre}"/>
-		    			<td th:text="${compra.precio}"/>
-		    			<td><input type="number" name="cantidades" value=0 min="0"></td>
+		    		<tr th:each="productos : ${lista}">
+		    			<td th:text="${productos.key.nombre}"/>
+		    			<td th:text="${productos.key.precio}"/>
+		    			<td><input type="number" name="cantidades" th:value=${productos.value} min="0"></td>
 		    		</tr>
 		    	</tbody>
 	    	</table>

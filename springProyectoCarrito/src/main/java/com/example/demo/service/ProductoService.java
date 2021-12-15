@@ -3,19 +3,21 @@ package com.example.demo.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Pedidos;
 import com.example.demo.model.Productos;
+import com.example.demo.model.Usuario;
 
 @Service
 public class ProductoService {
 
-	private List<Productos> listaProductos = new ArrayList<Productos>();
+	private ArrayList<Productos> listaProductos = new ArrayList<Productos>();
+	private Map<Productos, Integer> listaCantidades = new HashMap<Productos, Integer>();
 	
 	@PostConstruct
 	public void init() {
@@ -23,17 +25,37 @@ public class ProductoService {
 				new Productos("Manzana",0.32),new Productos("Lechuga",0.80),new Productos("Avena",2.10)));
 	}
 	
-	public ProductoService(List<Productos> listaProductos) {
+	public ProductoService(ArrayList<Productos> listaProductos) {
 		super();
 		this.listaProductos = listaProductos;
 	}
 	
-	public List<Productos> getListaProductos() {
+	public ArrayList<Productos> getListaProductos() {
 		return listaProductos;
 	}
 
-	public void setListaProductos(List<Productos> listaProductos) {
+	public void setListaProductos(ArrayList<Productos> listaProductos) {
 		this.listaProductos = listaProductos;
+	}
+	
+	public Map<Productos, Integer> getListaCantidades() {
+		return listaCantidades;
+	}
+
+	public void setListaCantidades(Map<Productos, Integer> listaCantidades) {
+		this.listaCantidades = listaCantidades;
+	}
+
+	public void meterProducto(Integer[] cantidades) {
+		Map<Productos, Integer> productos = new HashMap<Productos, Integer>();
+
+		for (int i = 0; i < cantidades.length; i++) {
+			if(cantidades[i]>=1) {
+				productos.put(listaProductos.get(i), cantidades[i]);
+			}
+		}
+		//la segunda lista es porque sobre escribe el primer pedido
+		this.listaCantidades=productos;
 	}
 	
 

@@ -1,62 +1,114 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Pedidos;
 import com.example.demo.model.Productos;
+import com.example.demo.model.Usuario;
 
 @Service
 public class PedidosService {
-
-	private List<Pedidos> listaPedidos = new ArrayList<Pedidos>();
+	
+	@Autowired
 	private ProductoService sevicioProductos;
-	Map<Productos, Integer> productosStatic = new HashMap<Productos, Integer>();
-	
-	public boolean addPedido(Pedidos e) {
-		return listaPedidos.add(e);
-	}
-	
-	@PostConstruct
-	public void init() {
-		listaPedidos.addAll(Arrays.asList(new Pedidos("C/noseque 1ªB","29126617"),
-								new Pedidos("C/noseque2 1ªB","39126617"),
-								new Pedidos("C/noseque3 1ªB","49126617"),
-								new Pedidos("C/noseque4 1ªB","59126617"),
-								new Pedidos("C/noseque5 1ªB","69126617")));
-		
-	}
+	@Autowired
+	private UsuarioService sevicioUsuario;
 
-	public List<Pedidos> getListaProductos() {
-		return listaPedidos;
-	}
+	private Pedidos ultimoPedido;
 	
-	public boolean modifiProducto(Productos e) {
-		
-		
-		return false;
-	}
+	private Map<Productos, Integer> productosLista = new HashMap<Productos, Integer>();
 	
-	public boolean meterPedidos(Integer[] cantidades) {
-		int contador=0;
-		for (Productos producto : sevicioProductos.getListaProductos()) {
-			productosStatic.put(producto, cantidades[contador]);
-			contador++;
+	//variable para guardar el precio total del pedido
+	private double precioTotal;
+	//variable para guardar el precio total del pedido mas el IVA
+	private double precioTotalIVA;
+	//variable para el IVA estandar
+	private double iva=1.21;
+	
+	//le añade el pedido al usuario
+	public boolean addPedido(Pedidos e,Usuario a) {
+		//creamos un nuevo pedido para que funcione
+		ultimoPedido = new Pedidos(e.getDireccion(),e.getTelefono(),e.getCorreoElectronico());
+		//metemos los productos en el mapa de pedidos
+		ultimoPedido.rellenarLista(productosLista);
+		//añadimos el pedido al usuario
+		return a.getListaPedidos().add(ultimoPedido);
+	}
+	/**metodo para editar pedido
+	 * Del usuario a saca la lista para recorrerla
+	 * Luego al usuario le quitamos el pedido con la misma ID y le añadimos el pedido modificado
+	 * Tambien hay que recordar añadir la fecha y ID
+	 * 
+	 */
+	public void editarPedido(Pedidos e,Usuario a) {
+		boolean encontrado = false;
+		int i = 0;
+		Usuario user = sevicioUsuario.sacarUsuario(a);
+		List<Pedidos> listaPedidos=user.getListaPedidos();
+		while (!encontrado && i < listaPedidos.size()) {
+			if (listaPedidos.get(i).getIdPedido() == sevicioUsuario.getId()) {
+				encontrado = true;
+				e.setFechaPack(listaPedidos.get(i).getFechaPack());
+				e.setIdPedido(listaPedidos.get(i).getIdPedido());
+				a.getListaPedidos().remove(i);
+				a.getListaPedidos().add(e);
+			} else {
+				i++;
+			}
 		}
-		return true;
+	}
+	
+	//este metodo es solo para mostrar el pedido cuando hagas el envio
+	public Pedidos mostrarUltimoPedido() {
+		return ultimoPedido;
+	}
+	
+	//Este metodo es para mostrar la lista de pedidos que tiene guardada el usuario
+	public List<Pedidos> getListaProductos(Usuario a) {
+		return a.getListaPedidos();
+	}
+	
+	public void meterPedidos(Integer[] cantidades) {
+		precioTotal=0;
+		Map<Productos, Integer> caja = new HashMap<Productos, Integer>();
+		List<Productos> listaProductos = this.sevicioProductos.getListaProductos();
+		
+		for (int i = 0; i < cantidades.length; i++) {
+			precioTotal+=cantidades[i]*listaProductos.get(i).getPrecio();
+			caja.put(listaProductos.get(i), cantidades[i]);
+		}
+		precioTotalIVA=precioTotal*iva;
+		this.productosLista=caja;
 	}
 
-
-	public void setListaProductos(List<Pedidos> listaProductos) {
-		this.listaPedidos = listaProductos;
+	
+	public List<Pedidos> sacarPedidos(Usuario e) {
+		
+		for (Usuario usuario : sevicioUsuario.getListaUsuarios()) {
+			if (usuario.getNickName().equalsIgnoreCase(e.getNickName())) {
+				if (usuario.getContrasenia().equalsIgnoreCase(e.getContrasenia())) {
+					return usuario.getListaPedidos();
+				}
+			}
+		}
+		return null;
 	}
+	
+	public double getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public double getPrecioTotaliva() {
+		return precioTotalIVA;
+	}
+	
+	
+
 	
 	
 }
