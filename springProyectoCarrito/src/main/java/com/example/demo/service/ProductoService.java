@@ -9,14 +9,13 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Pedidos;
 import com.example.demo.model.Productos;
-import com.example.demo.model.Usuario;
 
 @Service
 public class ProductoService {
 
 	private ArrayList<Productos> listaProductos = new ArrayList<Productos>();
+	//La variable para guardar lospedidos y sus cantidades
 	private Map<Productos, Integer> listaCantidades = new HashMap<Productos, Integer>();
 	
 	@PostConstruct
@@ -46,6 +45,9 @@ public class ProductoService {
 		this.listaCantidades = listaCantidades;
 	}
 
+	/**Este metodo sirve para rellenar la lista de productos y meter sus cantidades
+	 * hace un for que solo añade pedidos si la cantidad es mayor a 0
+	 */
 	public void meterProducto(Integer[] cantidades) {
 		Map<Productos, Integer> productos = new HashMap<Productos, Integer>();
 

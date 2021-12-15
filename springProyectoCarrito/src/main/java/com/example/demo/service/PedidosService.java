@@ -20,7 +20,7 @@ public class PedidosService {
 	private UsuarioService sevicioUsuario;
 
 	private Pedidos ultimoPedido;
-	
+	//La variable para guardar lospedidos y sus cantidades
 	private Map<Productos, Integer> productosLista = new HashMap<Productos, Integer>();
 	
 	//variable para guardar el precio total del pedido
@@ -72,7 +72,7 @@ public class PedidosService {
 	public List<Pedidos> getListaProductos(Usuario a) {
 		return a.getListaPedidos();
 	}
-	
+	//Aqui metemos los pedidos en la lista de productos y ya que estamos hacemos el precio total y el precio con IVA
 	public void meterPedidos(Integer[] cantidades) {
 		precioTotal=0;
 		Map<Productos, Integer> caja = new HashMap<Productos, Integer>();
@@ -86,7 +86,7 @@ public class PedidosService {
 		this.productosLista=caja;
 	}
 
-	
+	//Este metodo es para sacar los pedidos de un cierto usuario
 	public List<Pedidos> sacarPedidos(Usuario e) {
 		
 		for (Usuario usuario : sevicioUsuario.getListaUsuarios()) {

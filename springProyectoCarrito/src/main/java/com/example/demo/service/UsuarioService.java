@@ -17,17 +17,17 @@ import com.example.demo.model.Usuario;
 @Service
 public class UsuarioService {
 
+	//La variable lista de usuarios
 	private List<Usuario> listaUsuarios = new ArrayList<>();
+	//La variable 
 	private Pedidos pedidoEditar;
+	//La variable para guardar lospedidos y sus cantidades
 	private Map<Productos, Integer> mapaDelPedido = new HashMap<Productos, Integer>();
+	//La variable para guardar la id del pedido
 	private Integer id;
 	
-	//por si luego me da tiempo a añadir usuarios
-	public boolean anadirEmpleado(Usuario e) {
-		return listaUsuarios.add(e);
-	}
+	//metodo para 
 	//Si lo encuentra dice true y continuamos si no tiene que dar error(se implementara en otro lado)
-	
 	public Usuario sacarUsuario(Usuario e) {
 		
 		for (Usuario usuario : listaUsuarios) {
@@ -50,11 +50,6 @@ public class UsuarioService {
 		mapaDelPedido = nuevoPedido.getProductosLista();
 		pedidoEditar=nuevoPedido;
 		return nuevoPedido;
-	}
-	
-	
-	public void editarUsuario(Usuario e) {
-		
 	}
 	
 	@PostConstruct
