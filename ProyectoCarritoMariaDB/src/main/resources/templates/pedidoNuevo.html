@@ -8,7 +8,7 @@
 	<body>
 	<div class="divPadre">
 		<p th:text="${usuario.getNickName}"/>
-		<a href="/cerrarSesion"><button class="botonForm">Cerrar sesion</button></a>
+		<a th:href="@{/cerrarSesion}"><button class="botonForm">Cerrar sesion</button></a>
 		<h1>Lista de productos</h1>
 		<form action="#" th:action="@{/login/select/NuevoP/submit}" 
 		method="post">

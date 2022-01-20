@@ -29,15 +29,23 @@ public class UsuarioService {
 	//metodo para 
 	//Si lo encuentra dice true y continuamos si no tiene que dar error(se implementara en otro lado)
 	public Usuario sacarUsuario(Usuario e) {
-		
+		boolean laVerdad=false;
+		Usuario usu=null;
 		for (Usuario usuario : listaUsuarios) {
 			if (usuario.getNickName().equalsIgnoreCase(e.getNickName())) {
 				if (usuario.getContrasenia().equalsIgnoreCase(e.getContrasenia())) {
-					return usuario;
+					usu=usuario;
+					laVerdad=true;
+					
 				}
 			}
 		}
-		return null;
+		if (laVerdad==true) {
+			return usu;
+		}else {
+			return null;
+		}
+		
 	}
 	
 	public Pedidos sacarPedido(Usuario a, Integer id) {

@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,20 +21,20 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Table(name="pedidos")
 public class Pedidos {
-	@Column(name = "fecha", nullable = false)
+	//@Column(name = "fecha", nullable = false)
 	@CreationTimestamp
 	private Date fechaPack;
-	@Column(name = "direccion", nullable = false)
+	//@Column(name = "direccion", nullable = false)
 	private String direccion;
-	@Column(name = "telefono", nullable = false)
+	//@Column(name = "telefono", nullable = false)
 	private String telefono;
-	@Column(name = "email", nullable = false)
+	//@Column(name = "email", nullable = false)
 	private String correoElectronico;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-    @OneToMany(cascade = CascadeType.ALL)
-	@Column(name = "email", nullable = false)
+	private Long id;
+    @OneToMany(mappedBy = "pedido")
+	//@Column(name = "email", nullable = false)
 	private List<LineaPedido> listaLineaPedidos = new ArrayList<>();
 
 	public Pedidos(){}
@@ -78,11 +79,11 @@ public class Pedidos {
 		this.correoElectronico = correoElectronico;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -93,5 +94,30 @@ public class Pedidos {
 	public void setListaLineaPedidos(List<LineaPedido> listaLineaPedidos) {
 		this.listaLineaPedidos = listaLineaPedidos;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedidos other = (Pedidos) obj;
+		return id == other.id;
+	}
+
+	@Override
+	public String toString() {
+		return "Pedidos [fechaPack=" + fechaPack + ", direccion=" + direccion + ", telefono=" + telefono
+				+ ", correoElectronico=" + correoElectronico + ", id=" + id + "]";
+	}
+	
+	
 	
 }

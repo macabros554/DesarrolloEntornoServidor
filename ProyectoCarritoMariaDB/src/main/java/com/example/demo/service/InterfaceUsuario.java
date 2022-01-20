@@ -8,9 +8,8 @@ import com.example.demo.model.Usuario;
 public interface InterfaceUsuario {
 	
 	public Usuario sacarUsuario(Usuario u);
-	public Pedidos sacarPedido(Usuario e);
+	public Usuario datosUsuario(String nickname);
 	public List<Pedidos> listaPedidos(Usuario a);
-	public boolean editPedido(Pedidos e,Usuario a);
-	public void guardarUsuario(Pedidos e);
+	public void guardarPedidoEnUsuario();
 
 }

@@ -45,10 +45,10 @@ public class CarritoController {
 	public String logearUsuario(Model model) {
 		//añadimos el model usuario para poder usarlo y recogerlo en el post
 		model.addAttribute("usuario", new Usuario());
-		return "login";
+		return "/login";
 	}
 	
-	@PostMapping("/login/submit")
+	@PostMapping("login/submit")
 	@RequestMapping (value="/login/submit", method=RequestMethod.POST)
 	public String logearUsuarioSubmit(@Validated @ModelAttribute("usuario") Usuario intentoDeLogin,BindingResult bindingResult ) {
 		//Con el ModelAttribute recogemos el usuario y lo comparamos con los existentes
@@ -62,31 +62,31 @@ public class CarritoController {
 		}
 	}
 	
-	@GetMapping("/login/select")
+	@GetMapping("login/select")
 	public String seleccionarAccion1(Model model) {
 		//Desde de aqui creo siempre el model ususario para mostrar siempre el usuario en todas las paginas
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
-		return "select";
+		return "/select";
 	}
 
 	
-	@GetMapping("/login/select/listaP")
+	@GetMapping("login/select/listaP")
 	public String listaDeProductos(Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
 		//Saco de la sesion del usuario sus pedidos para mostrarlos
 		model.addAttribute("pedidos",servicioPedido.sacarPedidos((Usuario) sesion.getAttribute("usuario1")));
-		return "listaDeProductos";
+		return "/listaDeProductos";
 	}
 	
-	@GetMapping("/login/select/NuevoP")
+	@GetMapping("login/select/NuevoP")
 	public String nuevoPedido(Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
 		//Saco todos los productos creados para posterior mente reutilizarlos para crear un mapa con la cantidad
 		model.addAttribute("Productos",servicioProductos.getListaProductos());
-		return "pedidoNuevo";
+		return "/pedidoNuevo";
 	}
 	
-	@PostMapping("/login/select/NuevoP/submit")
+	@PostMapping("login/select/NuevoP/submit")
 	public String nuevoPedidoSubmit(Model model, @RequestParam(name="cantidades") Integer[] nuevoProducto) {
 		//metemos las cantidades y productos en un mapa
 		this.servicioProductos.meterProducto(nuevoProducto);
@@ -100,7 +100,7 @@ public class CarritoController {
 		
 	}
 	
-	@GetMapping("/login/select/NuevoP/envio")
+	@GetMapping("login/select/NuevoP/envio")
 	public String envio(Model model) {
 		//creamos un pedido para usarlo en envio
 		model.addAttribute("direccion", new Pedidos());
@@ -110,7 +110,7 @@ public class CarritoController {
 		return "envio";
 	}
 	
-	@PostMapping("/login/select/NuevoP/envio/submit")
+	@PostMapping("login/select/NuevoP/envio/submit")
 	public String nuevoEnvioSubmit(Model model, @ModelAttribute("direccion") Pedidos pedidoNuevo,
 			@RequestParam(name="direccion") String direccion,
 			@RequestParam(name="email") String email,
@@ -130,7 +130,7 @@ public class CarritoController {
 		}
 	}
 	
-	@GetMapping("/login/select/NuevoP/envio/resumen")
+	@GetMapping("login/select/NuevoP/envio/resumen")
 	public String resumen(Model model) {
 		//mostramos todos los datos que ha rellenado y cuanto cuesta en total lo que a comprado
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
@@ -138,11 +138,11 @@ public class CarritoController {
 		model.addAttribute("direccionPedido", servicioPedido.mostrarUltimoPedido());	
 		model.addAttribute("precioFinal", servicioPedido.getPrecioTotal());
 		model.addAttribute("precioFinalConIVA", servicioPedido.getPrecioTotaliva());
-		return "resumenEnvio";
+		return "/resumenEnvio";
 	}
 	
 	
-	@GetMapping("/login/select/EditarProducto/{id}")
+	@GetMapping("login/select/EditarProducto/{id}")
 	public String editarPedido(@PathVariable Integer id, Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
 		//creamos un pedido para guardar el pedido a modificar del usuario
@@ -152,13 +152,13 @@ public class CarritoController {
 			//guardamos la id del pedido en el usuario
 			servicioUsuario.setId(id);
 			model.addAttribute("lista",pedidoResguardo.getProductosLista());
-			return "pedidoNuevoEdit";
+			return "/pedidoNuevoEdit";
 		}else {
 			return "redirect:/login/select/NuevoP";
 		}
 	}
 	
-	@PostMapping("/login/select/EditarProducto/submit")
+	@PostMapping("login/select/EditarProducto/submit")
 	public String editarPedidoSubmit(@RequestParam(name="cantidades") Integer[] nuevoProducto) {
 		//creamos la lista de productos en los servicios pedidos y productos
 		this.servicioProductos.meterProducto(nuevoProducto);
@@ -170,21 +170,21 @@ public class CarritoController {
 		}
 	}
 	
-	@GetMapping("/login/select/EditarProducto/EditarEnvio")
+	@GetMapping("login/select/EditarProducto/EditarEnvio")
 	public String editarEnvio(Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
 		model.addAttribute("datosPedido", servicioProductos.getListaCantidades());
-		return "envioEdit";
+		return "/envioEdit";
 	}
 	
-	@PostMapping("/login/select/EditarProducto/EditarEnvio/submit")
+	@PostMapping("login/select/EditarProducto/EditarEnvio/submit")
 	public String editarEnvioSubmit(Model model, @ModelAttribute("nuevaDireccion") Pedidos pedidoNuevo,
 			@RequestParam(name="direccion") String direccion,
 			@RequestParam(name="email") String email,
 			@RequestParam(name="telefono") String telefono
 			) {
 		if(direccion=="" || telefono=="" || email=="") {
-			return "redirect:/login/select/NuevoP/envio";
+			return "redirect:login/select/NuevoP/envio";
 		}else {
 			//actualizamos el pedido que tenemos guardado en el servicio
 			servicioPedido.setUltimoPedido(pedidoNuevo);
@@ -197,17 +197,17 @@ public class CarritoController {
 		}
 	}
 	
-	@GetMapping("/login/select/NuevoP/envio/resumenEditado")
+	@GetMapping("login/select/NuevoP/envio/resumenEditado")
 	public String resumenEdit(Model model) {
 		model.addAttribute("usuario", sesion.getAttribute("usuario1"));
 		model.addAttribute("datosPedido", this.servicioProductos.getListaCantidades());
 		model.addAttribute("direccionPedido", servicioPedido.mostrarUltimoPedido());	
 		model.addAttribute("precioFinal", servicioPedido.getPrecioTotal());
 		model.addAttribute("precioFinalConIVA", servicioPedido.getPrecioTotaliva());
-		return "resumenEnvio";
+		return "/resumenEnvio";
 	}
 	
-	@GetMapping("/cerrarSesion")
+	@GetMapping("cerrarSesion")
 	public String cerrarSesion() {
 		sesion.invalidate();
 		return "redirect:/login";

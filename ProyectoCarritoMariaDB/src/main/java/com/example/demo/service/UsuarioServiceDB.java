@@ -23,11 +23,15 @@ public class UsuarioServiceDB implements InterfaceUsuario{
 	@Autowired
 	private HttpSession sesion;
 	
+	@Autowired
+	private PedidoServiceDB servicioPedido;
+	
 	@Override
 	public Usuario sacarUsuario(Usuario e) {
 		for (Usuario usuario : repoUsuario.findAll()) {
 			if (usuario.getNickName().equalsIgnoreCase(e.getNickName())) {
 				if (usuario.getContrasenia().equalsIgnoreCase(e.getContrasenia())) {
+					sesion.setAttribute("usuario1", usuario.getNickName());
 					return usuario;
 				}
 			}
@@ -36,33 +40,23 @@ public class UsuarioServiceDB implements InterfaceUsuario{
 	}
 
 	@Override
-	public Pedidos sacarPedido(Usuario e) {
-		
-		return null;
-	}
-
-	@Override
 	public List<Pedidos> listaPedidos(Usuario a) {
-		// TODO Auto-generated method stub
 		return a.getListaPedidos();
 	}
 
 	@Override
-	public boolean editPedido(Pedidos e, Usuario a) {
-		// TODO Auto-generated method stub
-		return false;
+	public void guardarPedidoEnUsuario() {
+		Usuario usu=datosUsuario((String)sesion.getAttribute("usuario1"));
+		List<Pedidos> listaPedidos;
+		listaPedidos=usu.getListaPedidos();
+		listaPedidos.add(servicioPedido.ultimoPedido());
+		usu.setListaPedidos(listaPedidos);
+		repoUsuario.save(usu);
 	}
 
 	@Override
-	public void guardarUsuario(Pedidos e) {
-		Usuario usu=(Usuario) sesion.getAttribute("usuario1");
-		List<Pedidos> listaPedidos = new ArrayList<>();
-		listaPedidos=usu.getListaPedidos();
-		listaPedidos.add(e);
-		usu.setListaPedidos(listaPedidos);
-		sesion.setAttribute("usuario1", usu);
-		repoUsuario.save(usu);
-		
+	public Usuario datosUsuario(String nickname) {
+		return repoUsuario.getById(nickname);
 	}
 
 }

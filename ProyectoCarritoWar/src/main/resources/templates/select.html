@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Select1 SuperMercado</title>
-		<link href="/estilos.css" rel="stylesheet">
+		<link href="../estilos.css" rel="stylesheet">
 	</head>
 	<body>
 	<div class="divPadre">
@@ -11,9 +11,12 @@
 		<a th:href="@{/cerrarSesion}"><button class="botonForm">Cerrar sesion</button></a>
 		<h1>Selecciona la accion a ejecutar</h1>
 		
-		
-			<a th:href="@{/login/select/NuevoP}"><button class="botonForm">Nuevo Pedido</button></a>
-			<a th:href="@{/login/select/listaP}"><button class="botonForm">Lista Pedidos</button></a>
+		<form action="#" th:action="@{/login/select/NuevoP}" method="get">
+			<input type="submit" value="Nuevo Pedido" class="botonForm">
+		</form>
+		<form action="#" th:action="@{/login/select/listaP}" method="get">
+			<input type="submit" value="Lista Pedidos" class="botonForm">
+		</form>
 		</div>
 	</body>
 </html>

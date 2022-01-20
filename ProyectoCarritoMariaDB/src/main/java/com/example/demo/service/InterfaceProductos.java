@@ -11,4 +11,5 @@ public interface InterfaceProductos {
 	public Pedidos addProducto(Integer[] cantidades);
 	public Double suma();
 	public List<Productos> listaProductos();
+
 }

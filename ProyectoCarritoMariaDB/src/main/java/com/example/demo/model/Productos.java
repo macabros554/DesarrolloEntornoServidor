@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +15,10 @@ public class Productos {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id=0;
-    @Column(name = "nombre", nullable = false)
+	private Long id;
+    //@Column(name = "nombre", nullable = false)
 	private String nombre;
-    @Column(name = "precio", nullable = false)
+    //@Column(name = "precio", nullable = false)
 	private double precio;
 	
 	public Productos() {
@@ -28,10 +30,10 @@ public class Productos {
 		this.precio = precio;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -47,6 +49,28 @@ public class Productos {
 	}
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Productos other = (Productos) obj;
+		return id == other.id;
+	}
+
+	@Override
+	public String toString() {
+		return "Productos [id=" + id + ", nombre=" + nombre + ", precio=" + precio + "]";
 	}
 	
 	

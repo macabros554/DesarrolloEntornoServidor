@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +17,8 @@ public class LineaPedido {
 	//aqui estan las cantidades de cada producto que ha comprado
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-    @Column(name = "cantidad", nullable = false)
+	private Long id;
+    //@Column(name = "cantidad", nullable = false)
     private int cantidad;
     
     @ManyToOne
@@ -24,16 +26,18 @@ public class LineaPedido {
     @ManyToOne
     private Pedidos pedido;
     
+    public LineaPedido(){}
+    
 	public LineaPedido(int cantidad, Productos producto, Pedidos pedido) {
 		super();
 		this.cantidad = cantidad;
 		this.producto = producto;
 		this.pedido = pedido;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public int getCantidad() {
@@ -53,6 +57,27 @@ public class LineaPedido {
 	}
 	public void setPedido(Pedidos pedido) {
 		this.pedido = pedido;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LineaPedido other = (LineaPedido) obj;
+		return id == other.id;
+	}
+	
+	@Override
+	public String toString() {
+		return "LineaPedido [id=" + id + ", cantidad=" + cantidad + "]";
 	}
     
     

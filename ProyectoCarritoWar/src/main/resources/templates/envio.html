@@ -3,13 +3,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Envio SuperMercado</title>
-		<link href="/estilos.css" rel="stylesheet">
+		<link th:href="@{../estilos.css}" rel="stylesheet">
 	</head>
 	<body>
-	<div class="divPadre">
+		<div class="divPadre">
 		<p th:text="${usuario.getNickName}"/>
-		<a href="/cerrarSesion"><button class="botonForm">Cerrar sesion</button></a>
-			<form action="#" th:action="@{/login/select/EditarProducto/EditarEnvio/submit}" method="post">
+		<a th:href="@{/cerrarSesion}"><button class="botonForm">Cerrar sesion</button></a>
+			<form action="#" th:action="@{/login/select/NuevoP/envio/submit}" method="post" th:object="${direccion}">
 			<h2>Productos adquiridos</h2>
 				<table>
 			    	<thead>

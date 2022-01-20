@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,20 +17,20 @@ import javax.persistence.Table;
 public class Usuario {
 	
 	@Id
-	@Column(name = "nickname", nullable = false)
+	//@Column(name = "nickname", nullable = false)
 	private String nickName;
-	@Column(name = "nombre", nullable = false)
+	//@Column(name = "nombre", nullable = false)
 	private String nombre;
-	@Column(name = "contrasenia", nullable = false)
+	//@Column(name = "contrasenia", nullable = false)
 	private String contrasenia;
-	@Column(name = "email", nullable = false)
+	//@Column(name = "email", nullable = false)
 	private String correoElectronico;
-	@Column(name = "direccion", nullable = false)
+	//@Column(name = "direccion", nullable = false)
 	private String direccion;
-	@Column(name = "telefono", nullable = false)
+	//@Column(name = "telefono", nullable = false)
 	private String telefono;
 	@OneToMany(fetch = FetchType.EAGER)
-	@Column(name = "telefono", nullable = false)
+	//@Column(name = "telefono", nullable = false)
 	private List<Pedidos> listaPedidos = new ArrayList<>();
 	
 	public Usuario() {}
@@ -101,6 +102,29 @@ public class Usuario {
 
 	public void setListaPedidos(List<Pedidos> listaPedidos) {
 		this.listaPedidos = listaPedidos;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nickName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(nickName, other.nickName);
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [nickName=" + nickName + ", nombre=" + nombre + ", contrasenia=" + contrasenia
+				+ ", correoElectronico=" + correoElectronico + ", direccion=" + direccion + ", telefono=" + telefono + "]";
 	}
 
 	
