@@ -21,20 +21,15 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Table(name="pedidos")
 public class Pedidos {
-	//@Column(name = "fecha", nullable = false)
 	@CreationTimestamp
 	private Date fechaPack;
-	//@Column(name = "direccion", nullable = false)
 	private String direccion;
-	//@Column(name = "telefono", nullable = false)
 	private String telefono;
-	//@Column(name = "email", nullable = false)
 	private String correoElectronico;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
     @OneToMany(mappedBy = "pedido")
-	//@Column(name = "email", nullable = false)
 	private List<LineaPedido> listaLineaPedidos = new ArrayList<>();
 
 	public Pedidos(){}

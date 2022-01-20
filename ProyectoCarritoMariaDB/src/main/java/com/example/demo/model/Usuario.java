@@ -17,20 +17,13 @@ import javax.persistence.Table;
 public class Usuario {
 	
 	@Id
-	//@Column(name = "nickname", nullable = false)
 	private String nickName;
-	//@Column(name = "nombre", nullable = false)
 	private String nombre;
-	//@Column(name = "contrasenia", nullable = false)
 	private String contrasenia;
-	//@Column(name = "email", nullable = false)
 	private String correoElectronico;
-	//@Column(name = "direccion", nullable = false)
 	private String direccion;
-	//@Column(name = "telefono", nullable = false)
 	private String telefono;
 	@OneToMany(fetch = FetchType.EAGER)
-	//@Column(name = "telefono", nullable = false)
 	private List<Pedidos> listaPedidos = new ArrayList<>();
 	
 	public Usuario() {}

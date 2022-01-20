@@ -18,14 +18,12 @@ public class LineaPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-    //@Column(name = "cantidad", nullable = false)
     private int cantidad;
-    
     @ManyToOne
     private Productos producto;
     @ManyToOne
     private Pedidos pedido;
-    
+  
     public LineaPedido(){}
     
 	public LineaPedido(int cantidad, Productos producto, Pedidos pedido) {

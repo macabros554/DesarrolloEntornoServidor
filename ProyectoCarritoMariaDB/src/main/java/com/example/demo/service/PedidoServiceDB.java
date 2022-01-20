@@ -98,8 +98,8 @@ public class PedidoServiceDB {
 		usuario.getListaPedidos().remove(pedido);
 		repoUsuario.save(usuario);
 		
-		for (LineaPedido currentOrder: pedido.getListaLineaPedidos()) {
-			repoLineaDePedido.delete(currentOrder);
+		for (LineaPedido linea: pedido.getListaLineaPedidos()) {
+			repoLineaDePedido.delete(linea);
 		}
 		
 		repoPedido.delete(pedido);
