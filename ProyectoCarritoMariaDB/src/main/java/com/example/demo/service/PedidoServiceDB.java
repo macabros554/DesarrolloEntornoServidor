@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.LineaPedido;
 import com.example.demo.model.Pedidos;
-import com.example.demo.model.Productos;
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.LineaPedidoRepository;
 import com.example.demo.repository.PedidosRepository;
-import com.example.demo.repository.ProductosRepository;
 import com.example.demo.repository.UsuarioRepository;
 
 @Service("pedidoServiceDB")
@@ -24,9 +22,6 @@ public class PedidoServiceDB {
 	private HttpSession sesion;
 	
 	@Autowired
-	private UsuarioServiceDB servicioUsuario;
-	
-	@Autowired
 	private PedidosRepository repoPedido;
 	
 	@Autowired
@@ -34,12 +29,13 @@ public class PedidoServiceDB {
 	
 	@Autowired
 	private UsuarioRepository repoUsuario;
-	@Autowired
-	private ProductosRepository repoProductos;
-
 	
 	public List<LineaPedido> ultimaListaPedido() {
 		return repoPedido.getById((Long) sesion.getAttribute("IdUltimoPedido")).getListaLineaPedidos();
+	}
+	
+	public List<LineaPedido> sacarListaPedido(Long id) {
+		return repoPedido.getById(id).getListaLineaPedidos();
 	}
 
 	

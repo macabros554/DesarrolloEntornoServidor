@@ -14,7 +14,9 @@ import javax.persistence.Table;
 @Table(name="lineaPedido")
 public class LineaPedido {
 
-	//aqui estan las cantidades de cada producto que ha comprado
+	/*
+	 * aqui estan las cantidades de cada producto que ha comprado
+	 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -69,6 +68,14 @@ public class ProductoServiceDB implements InterfaceProductos{
 	public Double suma() {
 		Double resultado=0.0;
 		for (LineaPedido a : repoPedido.getById((Long) sesion.getAttribute("IdUltimoPedido")).getListaLineaPedidos()) {
+			resultado+= a.getCantidad()*a.getProducto().getPrecio();
+		}
+		return resultado;
+	}	
+	
+	public Double sumaConcreta(Long id) {
+		Double resultado=0.0;
+		for (LineaPedido a : repoPedido.getById(id).getListaLineaPedidos()) {
 			resultado+= a.getCantidad()*a.getProducto().getPrecio();
 		}
 		return resultado;

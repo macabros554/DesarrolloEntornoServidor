@@ -160,7 +160,7 @@ public class CarritoController {
 			@RequestParam(name="telefono") String telefono
 			) {
 		if(direccion=="" || telefono=="" || email=="") {
-			return "redirect:/login/select/NuevoP/envio";
+			return "redirect:/login/select/EditarProducto/EditarEnvio";
 		}else {
 			Pedidos pedidoGuardado = servicioPedido.ultimoPedido();
 			pedidoGuardado.setCorreoElectronico(email);
@@ -184,6 +184,15 @@ public class CarritoController {
 	public String borrarProducto(@PathVariable Long id, Model model) {
 		servicioPedido.borrarPedido(id, (String) sesion.getAttribute("usuario1"));
 		return "redirect:/login/select/listaP";
+	}
+	
+	@GetMapping("/login/select/listaP/datos/{id}")
+	public String datosPedido(Model model,@PathVariable Long id) {
+		model.addAttribute("usuario", servicioUsuario.datosUsuario((String)sesion.getAttribute("usuario1")));
+		model.addAttribute("listaPedidos",servicioPedido.sacarListaPedido(id));
+		model.addAttribute("direccion", servicioPedido.sacarPedido(id));
+		model.addAttribute("total", servicioProductos.sumaConcreta(id));
+		return "datosPedido";
 	}
 	
 	@GetMapping("/cerrarSesion")
