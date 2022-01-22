@@ -14,6 +14,10 @@ import javax.persistence.Table;
 @Table(name="usuario")
 public class Usuario {
 	
+	/*
+	 * Le decioms que la id es el nickname 
+	 */
+	
 	@Id
 	private String nickName;
 	private String nombre;
@@ -21,6 +25,10 @@ public class Usuario {
 	private String correoElectronico;
 	private String direccion;
 	private String telefono;
+	/*
+	 * en la relacion OneToMany usamos el fetch de tipipo eager porque cargará todos los datos de las entidades que sean necesarias 
+	 * esto incluye a los hijos
+	 */
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Pedidos> listaPedidos = new ArrayList<>();
 	
@@ -94,6 +102,10 @@ public class Usuario {
 	public void setListaPedidos(List<Pedidos> listaPedidos) {
 		this.listaPedidos = listaPedidos;
 	}
+	
+	/*
+	 * generamos hashCode, equals y toString
+	 */
 
 	@Override
 	public int hashCode() {

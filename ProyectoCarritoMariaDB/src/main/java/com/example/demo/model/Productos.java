@@ -12,6 +12,10 @@ import javax.persistence.Table;
 @Table(name="productos")
 public class Productos {
 	
+	/*
+	 * con generatedValue generamos una id automaticamente
+	 */
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -47,6 +51,10 @@ public class Productos {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+	
+	/*
+	 * generamos hashCode, equals y toString
+	 */
 
 	@Override
 	public int hashCode() {

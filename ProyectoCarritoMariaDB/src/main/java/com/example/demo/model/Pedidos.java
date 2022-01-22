@@ -17,14 +17,25 @@ import org.hibernate.annotations.CreationTimestamp;
 @Entity
 @Table(name="pedidos")
 public class Pedidos {
+	
+	/*
+	 * Usamos CreationTimestamp para que asigne la fecha cada vez que se cree un pedidod nuevo
+	 */
 	@CreationTimestamp
 	private Date fechaPack;
 	private String direccion;
 	private String telefono;
 	private String correoElectronico;
+	/*
+	 * con generatedValue generamos una id automaticamente
+	 */
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+    /*
+     * mapeamos la lista de lieas de pedido para que pedidos se ocude de ella y no genere otra tabla
+     */
     @OneToMany(mappedBy = "pedido")
 	private List<LineaPedido> listaLineaPedidos = new ArrayList<>();
 
@@ -85,6 +96,10 @@ public class Pedidos {
 	public void setListaLineaPedidos(List<LineaPedido> listaLineaPedidos) {
 		this.listaLineaPedidos = listaLineaPedidos;
 	}
+	
+	/*
+	 * generamos hashCode, equals y toString
+	 */
 
 	@Override
 	public int hashCode() {

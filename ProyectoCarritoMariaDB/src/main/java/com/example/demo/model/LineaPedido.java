@@ -58,6 +58,10 @@ public class LineaPedido {
 	public void setPedido(Pedidos pedido) {
 		this.pedido = pedido;
 	}
+	
+	/*
+	 * generamos hashCode, equals y toString
+	 */
 
 	@Override
 	public int hashCode() {

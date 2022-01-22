@@ -27,12 +27,9 @@
 	    			<td th:text="${compra.telefono}"/>	
 	    			<td><a th:href="@{/login/select/listaP/datos/{id}(id=${compra.id})}"><button class="botonForm">Datos</button></a></td>
 	    			<td><a th:href="@{/login/select/EditarProducto/{id}(id=${compra.id})}"><button class="botonForm">Editar</button></a></td>
-	    			<td><form action="#" th:action="@{/login/select/listaP/{id}(id=${compra.id})}" method="post">
+	    			<td><form action="#" th:action="@{/login/select/listaP/borrar/{id}(id=${compra.id})}" method="post">
 	    			<input type="submit" value="Borrar" class="botonForm">
 	    			</form></td>
-	    			
-	    			
-	    				
 	    	</tbody>
 	    </table>
 		<a th:href="@{/login/select}"><button class="botonForm">Volver</button></a>

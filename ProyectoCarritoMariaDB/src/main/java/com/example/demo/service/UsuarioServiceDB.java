@@ -25,6 +25,10 @@ public class UsuarioServiceDB implements InterfaceUsuario{
 	@Autowired
 	private PedidoServiceDB servicioPedido;
 	
+	/*
+	 * Comprueba su el usuario esta en la base de datos y si la contraseña pertenece a ese usuario
+	 */
+	
 	@Override
 	public Usuario sacarUsuario(Usuario e) {
 		for (Usuario usuario : repoUsuario.findAll()) {
@@ -38,10 +42,18 @@ public class UsuarioServiceDB implements InterfaceUsuario{
 		return null;
 	}
 
+	/*
+	 * devuelve la lista de pedidos de la lista de pedidos del usuario que se para por parametro
+	 */
+	
 	@Override
 	public List<Pedidos> listaPedidos(Usuario a) {
 		return a.getListaPedidos();
 	}
+	
+	/*
+	 * le añade al usuario el nuevo pedido y lo guarda en la base de datos
+	 */
 
 	@Override
 	public void guardarPedidoEnUsuario() {
@@ -52,10 +64,19 @@ public class UsuarioServiceDB implements InterfaceUsuario{
 		usu.setListaPedidos(listaPedidos);
 		repoUsuario.save(usu);
 	}
+	
+	/*
+	 * Pasa el PK de usuario en mi caso el nickname y te devuelve los datos del usuario que esta guardado en la base de datos
+	 */
 
 	@Override
 	public Usuario datosUsuario(String nickname) {
 		return repoUsuario.getById(nickname);
 	}
 
+	/*
+	 * recordatorio 
+	 * En caso de que la erramienta de eclipse que se llama variables no funcione 
+	 * usar syso para ver lo que contiene la variable
+	 */
 }
