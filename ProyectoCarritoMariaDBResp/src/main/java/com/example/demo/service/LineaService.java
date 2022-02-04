@@ -35,13 +35,34 @@ public class LineaService {
 	}
 	
 	public LineaPedido editarLinea(LineaPedido linea,Long id) {
-		LineaPedido lineaAnt=repoLinea.getById(id);
-		lineaAnt.setCantidad(linea.getCantidad());
-		return repoLinea.save(lineaAnt);
+		if (repoLinea.existsById(id)) {
+			LineaPedido lineaAnt=repoLinea.getById(id);
+			lineaAnt.setCantidad(linea.getCantidad());
+			lineaAnt.setProducto(servicioProducto.buscarProducto(linea.getProducto().getId()));
+			return repoLinea.save(lineaAnt);
+		}else {
+			return null;
+		}
+		
 	}
 	
-	private void guardarLinea(LineaPedido linea) {
+	public LineaPedido buscarLinea(Long id) {
+		return repoLinea.findById(id).orElse(null);
+	}
+	
+	public void guardarLinea(LineaPedido linea) {
 		repoLinea.save(linea);
+	}
+	
+	public LineaPedido lineaExisteEnPedido(Long idLin,Long idPed) {
+		Pedidos pedido= servicioPedido.sacarPedido(idPed);
+		LineaPedido lineapedido=null;
+		for (LineaPedido linea : pedido.getListaLineaPedidos()) {
+			if (linea.getId()==idLin) {
+				lineapedido=linea;
+			}
+		}
+		return lineapedido;
 	}
 	
 	public Pedidos borrarLinea(Long idLinea,Long idPedido) {

@@ -24,17 +24,19 @@ public class PedidoServiceDB {
 	@Autowired
 	private UsuarioRepository repoUsuario;
 	
-	public Usuario generarPedido(String nickname) {
+	public Pedidos generarPedido(String nickname) {
 		
 		Pedidos pedidonuevo=new Pedidos();
 		Usuario usu = repoUsuario.findById(nickname).orElse(null);
+		pedidonuevo.setUsuario(usu);
 		/*pedidonuevo.setDireccion(usu.getDireccion());
 		pedidonuevo.setCorreoElectronico(usu.getCorreoelectronico());
 		pedidonuevo.setTelefono(usu.getTelefono());*/
 		usu.getListaPedidos().add(pedidonuevo);
 		repoPedido.save(pedidonuevo);
+		repoUsuario.save(usu);
 		
-		return repoUsuario.save(usu);
+		return pedidonuevo;
 	}
 	
 	public List<LineaPedido> sacarListaPedido(Long id) {
@@ -42,7 +44,7 @@ public class PedidoServiceDB {
 	}
 	
 	public Pedidos sacarPedido(Long id) {
-		return repoPedido.getById(id);
+		return repoPedido.findById(id).orElse(null);
 	}
 	
 	public void guardarPedido(Pedidos pedidoEntrante) {
@@ -50,9 +52,8 @@ public class PedidoServiceDB {
 	}
 	
 	public Pedidos editarPedido(Pedidos pedido,Long id) {
-		Pedidos antPedido=repoPedido.getById(id);
-		
 		if (repoPedido.existsById(id)) {
+			Pedidos antPedido=repoPedido.getById(id);
 			antPedido.setCorreoElectronico(pedido.getCorreoElectronico());
 			antPedido.setDireccion(pedido.getDireccion());
 			antPedido.setTelefono(pedido.getTelefono());
@@ -64,30 +65,26 @@ public class PedidoServiceDB {
 		
 	}
 	
-	public Usuario borrarPedido(Long id, String usuarioName) {
+	public Usuario borrarPedido(Long id) {
 		if (repoPedido.existsById(id)) {
 			Pedidos pedido = repoPedido.findById(id).orElse(null);
-			if (repoUsuario.existsById(usuarioName)) {
-				Usuario usuario = repoUsuario.findById(usuarioName).orElse(null);
-				usuario.getListaPedidos().remove(pedido);
-				repoUsuario.save(usuario);
+			
+			Usuario usuario = repoUsuario.findById(pedido.getUsuario().getNickname()).orElse(null);
+			usuario.getListaPedidos().remove(pedido);
+			repoUsuario.save(usuario);
 				
-				for (LineaPedido linea: pedido.getListaLineaPedidos()) {
-					repoLineaDePedido.delete(linea);
-				}
-				
-				repoPedido.delete(pedido);
-				return usuario;
-			}else {
-				return null;
+			for (LineaPedido linea: pedido.getListaLineaPedidos()) {
+				repoLineaDePedido.delete(linea);
 			}
-
+				
+			repoPedido.delete(pedido);
+			return usuario;
 		}else {
 			return null;
 		}
 		
 		
-	} 
+	}
 	
 	
 	

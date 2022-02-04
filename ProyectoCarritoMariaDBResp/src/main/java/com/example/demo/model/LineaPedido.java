@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="lineaPedido")
 public class LineaPedido {
@@ -23,6 +25,7 @@ public class LineaPedido {
     @ManyToOne
     private Productos producto;
     @ManyToOne
+    @JsonBackReference
     private Pedidos pedido;
   
     public LineaPedido(){}
