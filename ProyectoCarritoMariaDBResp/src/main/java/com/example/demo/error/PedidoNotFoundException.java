@@ -8,7 +8,7 @@ public class PedidoNotFoundException extends RuntimeException{
 
 	
 	/**
-	 * 
+	 * Mensaje de error que extiende de Runtime exeption y muestra el mensaje de pedido no encontrado
 	 */
 	private static final long serialVersionUID = 3050440165348817552L;
 

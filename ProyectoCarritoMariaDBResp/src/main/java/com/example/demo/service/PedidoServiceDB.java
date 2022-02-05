@@ -24,6 +24,16 @@ public class PedidoServiceDB {
 	@Autowired
 	private UsuarioRepository repoUsuario;
 	
+	/**
+	 * Crea un pedido en el usuario que pasemos por parametro
+	 * @param nickname
+	 * @return peido
+	 */
+	
+	/* nota
+	 * comprobar si ya existe un pedido vacio para no crear otro
+	 */
+	
 	public Pedidos generarPedido(String nickname) {
 		
 		Pedidos pedidonuevo=new Pedidos();
@@ -39,17 +49,41 @@ public class PedidoServiceDB {
 		return pedidonuevo;
 	}
 	
+	/**
+	 * Devuelve la lista de lineas de pedio de un pedio que recibira su id por parametro
+	 * @param id
+	 * @return lista de lineas
+	 */
+	
 	public List<LineaPedido> sacarListaPedido(Long id) {
 		return repoPedido.getById(id).getListaLineaPedidos();
 	}
+	
+	/**
+	 * Devuelve un pedio que recibira su id por parametro
+	 * @param id
+	 * @return pedido
+	 */
 	
 	public Pedidos sacarPedido(Long id) {
 		return repoPedido.findById(id).orElse(null);
 	}
 	
+	/**
+	 * Guarda el pedido que reciba por parametro
+	 * @param pedidoEntrante
+	 */
+	
 	public void guardarPedido(Pedidos pedidoEntrante) {
 		repoPedido.save(pedidoEntrante);
 	}
+	
+	/**
+	 * Edita el pedido que lepasen la id con los datos del pedido que reciva 
+	 * @param pedido
+	 * @param id
+	 * @return pedido
+	 */
 	
 	public Pedidos editarPedido(Pedidos pedido,Long id) {
 		if (repoPedido.existsById(id)) {
@@ -61,9 +95,16 @@ public class PedidoServiceDB {
 		} else {
 			return null;
 		}
-
-		
 	}
+	
+	/**
+	 * Borra el pedido de la id que le pasen por parametro
+	 * Primero lo borra del usuario, no lo hay que pasar ya que el pedido guarda el usuario
+	 * Luego borra las lineas del pedido
+	 * Finalmente borra el pedido
+	 * @param id
+	 * @return usuario
+	 */
 	
 	public Usuario borrarPedido(Long id) {
 		if (repoPedido.existsById(id)) {
@@ -82,8 +123,6 @@ public class PedidoServiceDB {
 		}else {
 			return null;
 		}
-		
-		
 	}
 	
 	

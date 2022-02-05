@@ -24,6 +24,11 @@ public class LineaPedido {
     private int cantidad;
     @ManyToOne
     private Productos producto;
+    
+	/**
+	 * usamos JsonBackReference para que al mostrar el pedido no muestre el usuario y entre en bucle 
+	 */
+    
     @ManyToOne
     @JsonBackReference
     private Pedidos pedido;

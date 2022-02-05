@@ -17,24 +17,29 @@ public class UsuarioServiceDB{
 	@Autowired
 	private UsuarioRepository repoUsuario;
 	
-	/*
-	 * Comprueba su el usuario esta en la base de datos y si la contraseña pertenece a ese usuario
+	/**
+	 * Devuelve la lista de usuarios de la base de datos
+	 * @return lista de usuarios
 	 */
 	
 	public List<Usuario> mostrarUsuarios(){
 		return repoUsuario.findAll();
 	}
 
-	/*
+	/**
 	 * devuelve la lista de pedidos de la lista de pedidos del usuario que se para por parametro
+	 * @param a
+	 * @return lista de ledidos
 	 */
 	
 	public List<Pedidos> listaPedidos(Usuario a) {
 		return a.getListaPedidos();
 	}
 	
-	/*
+	/**
 	 * Pasa el PK de usuario en mi caso el nickname y te devuelve los datos del usuario que esta guardado en la base de datos
+	 * @param nickname
+	 * @return usuario
 	 */
 
 	public Usuario datosUsuario(String nickname) {
@@ -43,7 +48,7 @@ public class UsuarioServiceDB{
 
 	/*
 	 * recordatorio 
-	 * En caso de que la erramienta de eclipse que se llama variables no funcione 
+	 * En caso de que la herramienta de eclipse que se llama variables no funcione 
 	 * usar syso para ver lo que contiene la variable
 	 */
 }

@@ -19,6 +19,15 @@ public class LineaService {
 	@Autowired
 	private ProductoServiceDB servicioProducto;
 	
+	/**
+	 * Para añadir la linea con los datos que nos han pasado al pedido que nos han pasado
+	 * creamos una nueva linea y le añadinos los datos que tenemos
+	 * @param linea
+	 * @param idPedido
+	 * @return linea
+	 */
+	
+	
 	public LineaPedido anadirLinea(LineaPedido linea, Long idPedido) {
 		
 		Pedidos pedido=servicioPedido.sacarPedido(idPedido);
@@ -34,6 +43,13 @@ public class LineaService {
 		
 	}
 	
+	/**
+	 * Modificamos la linea que nos pasan la id con los datos de la linea que pasan por parametro
+	 * @param linea
+	 * @param id
+	 * @return linea
+	 */
+	
 	public LineaPedido editarLinea(LineaPedido linea,Long id) {
 		if (repoLinea.existsById(id)) {
 			LineaPedido lineaAnt=repoLinea.getById(id);
@@ -46,13 +62,31 @@ public class LineaService {
 		
 	}
 	
+	/**
+	 * Comprueba si la linea existe, si existe envia la linea si no null
+	 * @param id
+	 * @return linea
+	 */
+	
 	public LineaPedido buscarLinea(Long id) {
 		return repoLinea.findById(id).orElse(null);
 	}
 	
+	/**
+	 * Guarda la linea que pe pasan como parametro
+	 * @param linea
+	 */
+	
 	public void guardarLinea(LineaPedido linea) {
 		repoLinea.save(linea);
 	}
+	
+	/**
+	 * comprueba si la linea existe dentro del pedido que pasan por parametro
+	 * @param idLin
+	 * @param idPed
+	 * @return linea
+	 */
 	
 	public LineaPedido lineaExisteEnPedido(Long idLin,Long idPed) {
 		Pedidos pedido= servicioPedido.sacarPedido(idPed);
@@ -64,6 +98,13 @@ public class LineaService {
 		}
 		return lineapedido;
 	}
+	
+	/**
+	 * Borra la linea que le pasan por parametro
+	 * @param idLinea
+	 * @param idPedido
+	 * @return
+	 */
 	
 	public Pedidos borrarLinea(Long idLinea,Long idPedido) {
 		if (repoLinea.existsById(idLinea)) {

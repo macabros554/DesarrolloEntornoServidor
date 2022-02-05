@@ -23,7 +23,6 @@ import com.example.demo.model.LineaPedido;
 import com.example.demo.model.Pedidos;
 import com.example.demo.model.Productos;
 import com.example.demo.model.Usuario;
-import com.example.demo.repository.PedidosRepository;
 import com.example.demo.service.LineaService;
 import com.example.demo.service.PedidoServiceDB;
 import com.example.demo.service.ProductoServiceDB;

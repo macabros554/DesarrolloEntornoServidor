@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UbicacionNotFoundException extends RuntimeException{
 	
 	/**
-	 * 
+	 * Mensaje de error que extiende de Runtime exeption y muestra el mensaje de linea no encontrada en pedido
 	 */
 	private static final long serialVersionUID = -3784400546833702284L;
 

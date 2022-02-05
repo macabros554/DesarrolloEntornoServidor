@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ProductoNotFoundException extends RuntimeException{
 
 	/**
-	 * 
+	 * Mensaje de error que extiende de Runtime exeption y muestra el mensaje de producto no encontrado
 	 */
 	private static final long serialVersionUID = -2506811582208367968L;
 

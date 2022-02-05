@@ -8,7 +8,7 @@ public class UsuarioNotFoundException extends RuntimeException{
 
 	
 	/**
-	 * 
+	 * Mensaje de error que extiende de Runtime exeption y muestra el mensaje de usuario no encontrado
 	 */
 	private static final long serialVersionUID = -1373236377498004439L;
 

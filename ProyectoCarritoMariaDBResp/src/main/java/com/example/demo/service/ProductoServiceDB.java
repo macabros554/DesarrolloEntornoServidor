@@ -14,10 +14,20 @@ public class ProductoServiceDB{
 	@Autowired
 	private ProductosRepository repoProductos;
 	
+	/**
+	 * devuelve la lista de productos
+	 * @return lista de productos
+	 */
 	
 	public List<Productos> listaProductos() {
 		return repoProductos.findAll();
 	}
+	
+	/**
+	 * busca el producto
+	 * @param id
+	 * @return producto
+	 */
 	
 	public Productos buscarProducto(Long id) {
 		return repoProductos.findById(id).orElse(null);
